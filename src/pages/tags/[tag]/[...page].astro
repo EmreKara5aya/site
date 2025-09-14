@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from 'astro'
+import Layout from '~/layouts/Layout.astro'
+import { getSortedPosts } from '~/utils'
+import Pagination from '~/components/Pagination.astro'
+import BlockHeader from '~/components/BlockHeader.astro'
+import siteConfig from '~/site.config'
+import PostPreview from '~/components/PostPreview.astro'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const sortedPosts = await getSortedPosts()
+  const allTags = new Set(sortedPosts.flatMap((post) => post.data.tags || []))
+  const pages = [...allTags].flatMap((tag) => {
+    const postsWithTag = sortedPosts.filter((post) => (post.data.tags || []).includes(tag as string))
+    return paginate(postsWithTag, { params: { tag }, pageSize: siteConfig.pageSize })
+  })
+  return pages
+}) satisfies GetStaticPaths
+
+const { page } = Astro.props
+const { tag } = Astro.params
+const title = `Etiket: ${tag}`
+---
+
+<Layout title={title} description={`${tag} etiketiyle işaretlenmiş tüm yazılar`}>
+  <div class="mt-2 sm:mt-0">
+    <BlockHeader>{title}</BlockHeader>
+    {page.data.map((post) => <PostPreview post={post} />)}
+    <Pagination
+      prevLink={page.url.prev ? encodeURI(page.url.prev) : undefined}
+      prevText="Daha Yeni Yazılar"
+      nextLink={page.url.next ? encodeURI(page.url.next) : undefined}
+      nextText="Daha Eski Yazılar"
+    />
+  </div>
+</Layout>
