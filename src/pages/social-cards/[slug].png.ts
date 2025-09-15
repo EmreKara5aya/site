@@ -26,10 +26,13 @@ if (
   avatarBase64 = `data:image/jpeg;base64,${avatarData.toString('base64')}`
 }
 
+// For social cards, prefer dark theme when light-dark-auto is enabled
 const defaultTheme =
-  siteConfig.themes.default === 'auto'
-    ? siteConfig.themes.include[0]
-    : siteConfig.themes.default
+  siteConfig.themes.mode === 'light-dark-auto'
+    ? siteConfig.themes.include[1] || siteConfig.themes.include[0]
+    : siteConfig.themes.default === 'auto'
+      ? siteConfig.themes.include[0]
+      : siteConfig.themes.default
 
 const themeStyles = await resolveThemeColorStyles([defaultTheme], siteConfig.themes.overrides)
 const bg = themeStyles[defaultTheme]?.background
@@ -76,8 +79,28 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 export async function GET(context: APIContext) {
   const { pubDate, title, author } = context.props as Props
+  const slug = context.params?.slug as string
+  // Check cache in public/social-cards first
+  const cachePath = path.resolve('./public/social-cards', `${slug}.png`)
+  if (fs.existsSync(cachePath)) {
+    const file = fs.readFileSync(cachePath)
+    return new Response(file, {
+      headers: {
+        'Cache-Control': 'public, max-age=31536000, immutable',
+        'Content-Type': 'image/png',
+      },
+    })
+  }
+
   const svg = await satori(markup(title, pubDate, author) as ReactNode, ogOptions)
   const png = new Resvg(svg).render().asPng()
+  // Persist to public/ for future builds if possible
+  try {
+    fs.mkdirSync(path.dirname(cachePath), { recursive: true })
+    fs.writeFileSync(cachePath, png)
+  } catch (_e) {
+    // Non-fatal; continue
+  }
   return new Response(png, {
     headers: {
       'Cache-Control': 'public, max-age=31536000, immutable',
@@ -88,19 +111,29 @@ export async function GET(context: APIContext) {
 
 export async function getStaticPaths() {
   const posts = await getSortedPosts()
-  return posts
+  const items = posts
     .map((post) => ({
-      params: { slug: post.id },
-      props: {
-        pubDate: post.data.published ? dateString(post.data.published) : undefined,
-        title: post.data.title,
-        author: post.data.author || siteConfig.author,
-      },
+      slug: post.id as string,
+      pubDate: post.data.published ? dateString(post.data.published) : undefined,
+      title: post.data.title,
+      author: post.data.author || siteConfig.author,
     }))
-    .concat([
-      {
-        params: { slug: '__default' },
-        props: { pubDate: undefined, title: siteConfig.title, author: siteConfig.author },
-      },
-    ])
+    // Only include items that don't already exist in public/social-cards
+    .filter((p) => !fs.existsSync(path.resolve('./public/social-cards', `${p.slug}.png`)))
+    .map((p) => ({
+      params: { slug: p.slug },
+      props: { pubDate: p.pubDate, title: p.title, author: p.author },
+    }))
+
+  const defaultSlug = '__default'
+  const defaultExists = fs.existsSync(
+    path.resolve('./public/social-cards', `${defaultSlug}.png`),
+  )
+  if (!defaultExists) {
+    items.push({
+      params: { slug: defaultSlug },
+      props: { pubDate: undefined, title: siteConfig.title, author: siteConfig.author },
+    })
+  }
+  return items
 }
