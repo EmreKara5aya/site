@@ -1,47 +1,46 @@
 ---
-import type { CollectionEntry } from 'astro:content'
 
-interface Props {
-  posts: CollectionEntry<'posts'>[]
-}
+<ul id="random-tags" class="flex flex-wrap gap-x-3 gap-y-4 my-5"></ul>
 
-const { posts } = Astro.props
-const tags = new Set<string>([...posts.flatMap((post) => post.data.tags || [])])
-
-const tagsWithCountAll = Array.from(tags)
-  .map((tag) => {
-    const count = posts.filter((post) => post.data.tags?.includes(tag)).length
-    return { tag, count }
+<script>
+  async function loadRandomTags() {
+    try {
+      const res = await fetch('/tags.json', { headers: { 'cache-control': 'no-cache' } })
+      if (!res.ok) return
+      const data = await res.json()
+      const list = document.getElementById('random-tags')
+      if (!list) return
+      const tags = Array.isArray(data?.tags) ? data.tags : []
+      const pick = (arr, n) => {
+        const copy = [...arr]
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[copy[i], copy[j]] = [copy[j], copy[i]]
+        }
+        return copy.slice(0, n)
+      }
+      const chosen = pick(tags, 9)
+      list.innerHTML = chosen
+        .map(
+          (t) => `
+          <li>
+            <a href="${t.href}"
+               class="flex gap-2.5 py-2 pl-4 pr-3 bg-accent/7 rounded-3xl border-transparent hover:border-accent/20 border-1">
+              ${t.tag}
+              <span class="rounded-full bg-foreground/7 text-primary px-2 py-1 text-xs font-semibold">
+                ${t.count}
+              </span>
+            </a>
+          </li>`,
+        )
+        .join('')
+    } catch {}
+  }
+  loadRandomTags()
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') loadRandomTags()
   })
-  .sort((a, b) => b.count - a.count)
-
-// Shuffle for randomness, then take first 10
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
-const tagsWithCount = shuffle(tagsWithCountAll).slice(0, 10)
----
-
-<ul class="flex flex-wrap gap-x-3 gap-y-4 my-5">
-  {
-    tagsWithCount.map(({ tag, count }) => (
-      <li>
-        <a
-          href={`/tags/${encodeURIComponent(tag)}`}
-          class="flex gap-2.5 py-2 pl-4 pr-3 bg-accent/7 rounded-3xl border-transparent hover:border-accent/20 border-1"
-        >
-          {tag}
-          <span class="rounded-full bg-foreground/7 text-primary px-2 py-1 text-xs font-semibold">
-            {count}
-          </span>
-        </a>
-      </li>
-    ))
-  }
-</ul>
+  window.addEventListener('pageshow', loadRandomTags)
+  window.addEventListener('focus', loadRandomTags)
+  
+</script>
