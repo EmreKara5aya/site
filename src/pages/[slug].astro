@@ -9,6 +9,7 @@ import PostAddendum from '~/components/PostAddendum.astro'
 import TableOfContents from '~/components/TableOfContents.astro'
 // Do not use astro:assets Image here to avoid extra implicit resizing
 import GiscusLoader from '~/components/GiscusLoader.astro'
+import Remark42Loader from '~/components/Remark42Loader.astro'
 import siteConfig from '~/site.config'
 import { turkishSlugify } from '../utils/slugify'
 import Tags from '~/components/Tags.astro'
@@ -98,12 +99,17 @@ if (addendum.length > 0) {
   {prev && <PostPreview post={prev} />}
   {next && <PostPreview post={next} />}
   {
-    siteConfig.giscus && (
+    siteConfig.remark42 ? (
+      <>
+        <DividerText text="Yorumlar" />
+        <Remark42Loader />
+      </>
+    ) : siteConfig.giscus ? (
       <>
         <DividerText text="Yorumlar" />
         <GiscusLoader />
       </>
-    )
+    ) : null
   }
   <ScrollUpButton />
 </Layout>
