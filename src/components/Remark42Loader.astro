@@ -14,14 +14,37 @@ const embedMjs = `${host}/web/${componentName}.mjs`
 const embedJs = `${host}/web/${componentName}.js`
 ---
 
-<!-- 1) Global config -->
-<script is:inline>
-  {`// Sadece bu iki değeri değiştireceksin: host ve site_id\nwindow.remark_config = ${remarkConfigJson};`}
-</script>
-
-<!-- 2) Loader: ES module ve nomodule için ayrı scriptler -->
-<script type="module" defer async src={embedMjs}></script>
-<script nomodule defer async src={embedJs}></script>
-
 <!-- 3) Yorumların görüneceği yer -->
-<div id="remark42"></div>
+<div id="remark42" data-host={host} data-site-id={siteId} data-components={JSON.stringify(components)}></div>
+
+<!-- 1) Global config + 2) Loader (JS üzerinden eklenir) -->
+<script is:inline>
+  (function(){
+    var el = document.getElementById('remark42')
+    if (!el) return
+    var host = el.getAttribute('data-host') || ''
+    var site_id = el.getAttribute('data-site-id') || ''
+    var componentsAttr = el.getAttribute('data-components') || '[]'
+    var components
+    try { components = JSON.parse(componentsAttr) } catch (e) { components = ['embed'] }
+    if (!Array.isArray(components) || components.length === 0) components = ['embed']
+
+    // 1) Global config
+    var remark_config = { host: host, site_id: site_id, components: components }
+    window.remark_config = remark_config
+
+    // 2) Loader: ES module ve nomodule için ayrı scriptler
+    var name = components[0] || 'embed'
+    var m = document.createElement('script')
+    m.type = 'module'; m.defer = true; m.async = true
+    m.src = host + '/web/' + name + '.mjs'
+    ;(document.head || document.body).appendChild(m)
+
+    var n = document.createElement('script')
+    n.setAttribute('nomodule',''); n.defer = true; n.async = true
+    n.src = host + '/web/' + name + '.js'
+    ;(document.head || document.body).appendChild(n)
+  })();
+  
+  // Türkçe: Sadece bu iki değeri değiştireceksin: host ve site_id
+</script>
