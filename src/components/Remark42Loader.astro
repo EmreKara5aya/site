@@ -8,16 +8,12 @@ if (!r) {
 const host = r.host
 const siteId = r.site_id
 const components = r.components && r.components.length > 0 ? r.components : ['embed']
+const remarkConfigJson = JSON.stringify({ host, site_id: siteId, components })
 ---
 
 <!-- 1) Global config -->
 <script is:inline>
-  // Sadece bu iki değeri değiştireceksin: host ve site_id
-  window.remark_config = {
-    host: {JSON.stringify(host)},
-    site_id: {JSON.stringify(siteId)},
-    components: {JSON.stringify(components)}
-  };
+  {`// Sadece bu iki değeri değiştireceksin: host ve site_id\nwindow.remark_config = ${remarkConfigJson};`}
 </script>
 
 <!-- 2) Loader: ES module destekliyse .mjs, yoksa .js yükler -->
