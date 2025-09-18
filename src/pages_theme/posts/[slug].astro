@@ -9,6 +9,7 @@ import PostAddendum from '~/components/PostAddendum.astro'
 import TableOfContents from '~/components/TableOfContents.astro'
 import { Image } from 'astro:assets'
 import GiscusLoader from '~/components/GiscusLoader.astro'
+import Remark42Loader from '~/components/Remark42Loader.astro'
 import siteConfig from '~/site.config'
 import Tags from '~/components/Tags.astro'
 import PostInfo from '~/components/PostInfo.astro'
@@ -95,12 +96,17 @@ if (addendum.length > 0) {
   {prev && <PostPreview post={prev} />}
   {next && <PostPreview post={next} />}
   {
-    siteConfig.giscus && (
+    siteConfig.remark42 ? (
+      <>
+        <DividerText text="Comments" />
+        <Remark42Loader />
+      </>
+    ) : siteConfig.giscus ? (
       <>
         <DividerText text="Comments" />
         <GiscusLoader />
       </>
-    )
+    ) : null
   }
   <ScrollUpButton />
 </Layout>

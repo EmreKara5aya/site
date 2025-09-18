@@ -144,6 +144,12 @@ export type GiscusConfig = {
   reactionsEnabled: boolean
 }
 
+export type Remark42Config = {
+  host: string
+  site_id: string
+  components?: string[]
+}
+
 export interface SiteConfig {
   site: string
   font: string
@@ -157,4 +163,5 @@ export interface SiteConfig {
   socialLinks: SocialLinks
   navLinks: NavLink[]
   giscus: GiscusConfig | undefined
+  remark42?: Remark42Config | undefined
 }

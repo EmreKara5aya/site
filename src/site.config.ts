@@ -83,17 +83,13 @@ const config: SiteConfig = {
     instagram: 'https://www.instagram.com/emrekara5aya',
     rss: true, // Set to true to include an RSS feed link in the footer
   },
-  // Configuration for Giscus comments.
-  // To set up Giscus, follow the instructions at https://giscus.app/
-  // You'll need a GitHub repository with discussions enabled and the Giscus app installed.
-  // Take the values from the generated script tag at https://giscus.app and fill them in here.
-  // If you don't want to use Giscus, set this to undefined.
-  giscus: {
-    repo: 'stelcodes/multiterm-astro',
-    repoId: 'R_kgDOPNnBig',
-    category: 'Giscus',
-    categoryId: 'DIC_kwDOPNnBis4CteOc',
-    reactionsEnabled: true, // Enable reactions on post itself
+  // Disable Giscus (theme’s default) and enable Remark42 instead.
+  giscus: undefined,
+  // Remark42 configuration. You typically only change host and site_id.
+  remark42: {
+    host: 'https://yorum.emrekarakaya.com.tr',
+    site_id: 'emrekarakaya',
+    components: ['embed'], // or ['embed', 'counter'] if desired
   },
 }
 

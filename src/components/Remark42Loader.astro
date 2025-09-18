@@ -1,0 +1,43 @@
+---
+import siteConfig from '~/site.config'
+
+const r = siteConfig.remark42
+if (!r) {
+  throw new Error('Remark42 configuration is missing in site.config.ts')
+}
+const host = r.host
+const siteId = r.site_id
+const components = r.components && r.components.length > 0 ? r.components : ['embed']
+---
+
+<!-- 1) Global config -->
+<script>
+  // Sadece bu iki değeri değiştireceksin: host ve site_id
+  var remark_config = {
+    host: "{host}",
+    site_id: "{siteId}",
+    components: {JSON.stringify(components)}
+  };
+  // keep TS/ESLint quiet in editor contexts
+  // @ts-ignore
+  window.remark_config = remark_config;
+  // eslint-disable-next-line
+</script>
+
+<!-- 2) Loader: ES module destekliyse .mjs, yoksa .js yükler -->
+<script>
+!function (components, d) {
+  var s = d.createElement("script"),
+      isModuleCapable = ("noModule" in s),
+      ext = isModuleCapable ? ".mjs" : ".js";
+  if (isModuleCapable) s.type = "module";
+  s.defer = true; s.async = true;
+  // @ts-ignore
+  s.src = remark_config.host + "/web/" + (components || ["embed"])[0] + ext;
+  (d.head || d.body).appendChild(s);
+}(remark_config.components, document);
+</script>
+
+<!-- 3) Yorumların görüneceği yer -->
+<div id="remark42"></div>
+
