@@ -9,13 +9,14 @@ const host = r.host
 const siteId = r.site_id
 const components = r.components && r.components.length > 0 ? r.components : ['embed']
 const componentName = components[0]
+const locale = r.locale || 'tr'
 const remarkConfigJson = JSON.stringify({ host, site_id: siteId, components })
 const embedMjs = `${host}/web/${componentName}.mjs`
 const embedJs = `${host}/web/${componentName}.js`
 ---
 
 <!-- 3) Yorumların görüneceği yer -->
-<div id="remark42" data-host={host} data-site-id={siteId} data-components={JSON.stringify(components)}></div>
+<div id="remark42" data-host={host} data-site-id={siteId} data-components={JSON.stringify(components)} data-locale={locale}></div>
 
 <!-- 1) Global config + 2) Loader (JS üzerinden eklenir) -->
 <script is:inline>
@@ -25,6 +26,7 @@ const embedJs = `${host}/web/${componentName}.js`
     var host = el.getAttribute('data-host') || ''
     var site_id = el.getAttribute('data-site-id') || ''
     var componentsAttr = el.getAttribute('data-components') || '[]'
+    var locale = el.getAttribute('data-locale') || 'tr'
     var components
     try { components = JSON.parse(componentsAttr) } catch (e) { components = ['embed'] }
     if (!Array.isArray(components) || components.length === 0) components = ['embed']
@@ -38,7 +40,7 @@ const embedJs = `${host}/web/${componentName}.js`
 
     function injectScripts(theme){
       // 1) Global config with theme
-      var remark_config = { host: host, site_id: site_id, components: components, theme: theme }
+      var remark_config = { host: host, site_id: site_id, components: components, theme: theme, locale: locale }
       window.remark_config = remark_config
 
       // Clear previous render if any

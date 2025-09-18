@@ -90,6 +90,7 @@ const config: SiteConfig = {
     host: 'https://yorum.emrekarakaya.com.tr',
     site_id: 'emrekarakaya',
     components: ['embed'], // or ['embed', 'counter'] if desired
+    locale: 'tr',
   },
 }
 

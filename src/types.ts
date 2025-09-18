@@ -148,6 +148,7 @@ export type Remark42Config = {
   host: string
   site_id: string
   components?: string[]
+  locale?: string
 }
 
 export interface SiteConfig {
