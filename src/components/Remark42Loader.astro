@@ -11,21 +11,17 @@ const components = r.components && r.components.length > 0 ? r.components : ['em
 ---
 
 <!-- 1) Global config -->
-<script>
+<script is:inline>
   // Sadece bu iki değeri değiştireceksin: host ve site_id
-  var remark_config = {
-    host: "{host}",
-    site_id: "{siteId}",
+  window.remark_config = {
+    host: {JSON.stringify(host)},
+    site_id: {JSON.stringify(siteId)},
     components: {JSON.stringify(components)}
   };
-  // keep TS/ESLint quiet in editor contexts
-  // @ts-ignore
-  window.remark_config = remark_config;
-  // eslint-disable-next-line
 </script>
 
 <!-- 2) Loader: ES module destekliyse .mjs, yoksa .js yükler -->
-<script>
+<script is:inline>
 !function (components, d) {
   var s = d.createElement("script"),
       isModuleCapable = ("noModule" in s),
@@ -40,4 +36,3 @@ const components = r.components && r.components.length > 0 ? r.components : ['em
 
 <!-- 3) Yorumların görüneceği yer -->
 <div id="remark42"></div>
-
