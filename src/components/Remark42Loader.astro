@@ -28,23 +28,60 @@ const embedJs = `${host}/web/${componentName}.js`
     var components
     try { components = JSON.parse(componentsAttr) } catch (e) { components = ['embed'] }
     if (!Array.isArray(components) || components.length === 0) components = ['embed']
-
-    // 1) Global config
-    var remark_config = { host: host, site_id: site_id, components: components }
-    window.remark_config = remark_config
-
-    // 2) Loader: ES module ve nomodule için ayrı scriptler
     var name = components[0] || 'embed'
-    var m = document.createElement('script')
-    m.type = 'module'; m.defer = true; m.async = true
-    m.src = host + '/web/' + name + '.mjs'
-    ;(document.head || document.body).appendChild(m)
 
-    var n = document.createElement('script')
-    n.setAttribute('nomodule',''); n.defer = true; n.async = true
-    n.src = host + '/web/' + name + '.js'
-    ;(document.head || document.body).appendChild(n)
+    function mapTheme(t){
+      if (!t) return 'light'
+      t = String(t).toLowerCase()
+      return t.indexOf('dark') !== -1 ? 'dark' : 'light'
+    }
+
+    function injectScripts(theme){
+      // 1) Global config with theme
+      var remark_config = { host: host, site_id: site_id, components: components, theme: theme }
+      window.remark_config = remark_config
+
+      // Clear previous render if any
+      try { el.innerHTML = '' } catch(e) {}
+
+      // Remove previously injected remark scripts (best-effort)
+      var head = document.head || document.body
+      var prev = head.querySelectorAll('script[data-remark42]')
+      prev.forEach(function(p){ p.parentNode && p.parentNode.removeChild(p) })
+
+      // 2) Loader scripts
+      var m = document.createElement('script')
+      m.type = 'module'; m.defer = true; m.async = true
+      m.src = host + '/web/' + name + '.mjs'
+      m.setAttribute('data-remark42','')
+      head.appendChild(m)
+
+      var n = document.createElement('script')
+      n.setAttribute('nomodule',''); n.defer = true; n.async = true
+      n.src = host + '/web/' + name + '.js'
+      n.setAttribute('data-remark42','')
+      head.appendChild(n)
+    }
+
+    // Initial theme from page
+    var currentTheme = document.documentElement.getAttribute('data-theme')
+    injectScripts(mapTheme(currentTheme))
+
+    // Observe theme changes and re-inject
+    try {
+      var obs = new MutationObserver(function(mutations){
+        for (var i=0; i<mutations.length; i++){
+          var mu = mutations[i]
+          if (mu.type === 'attributes' && mu.attributeName === 'data-theme'){
+            var t = document.documentElement.getAttribute('data-theme')
+            injectScripts(mapTheme(t))
+            break
+          }
+        }
+      })
+      obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    } catch(e) {}
   })();
-  
   // Türkçe: Sadece bu iki değeri değiştireceksin: host ve site_id
+  // Tema, sayfadaki data-theme değerine göre otomatik olarak 'light'/'dark' ayarlanır.
 </script>
