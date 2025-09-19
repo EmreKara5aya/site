@@ -35,7 +35,7 @@ const embedJs = `${host}/web/${componentName}.js`
     function mapTheme(t){
       if (!t) return 'light'
       t = String(t).toLowerCase()
-      return t.indexOf('dark') !== -1 ? 'dark' : 'light'
+      return t.indexOf('dark') !== -1 ? 'transparent' : 'light'
     }
 
     function injectScripts(theme){
