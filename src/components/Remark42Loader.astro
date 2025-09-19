@@ -46,6 +46,15 @@ const embedJs = `${host}/web/${componentName}.js`
       }
     })()
 
+    var appliedTheme = null
+
+    function setThemeAttribute(theme) {
+      if (!el) return
+      try {
+        el.setAttribute('data-remark42-theme', theme)
+      } catch (e) {}
+    }
+
     function injectScripts(theme){
       // 1) Global config with theme
       var remark_config = {
@@ -57,6 +66,15 @@ const embedJs = `${host}/web/${componentName}.js`
         customCss: customCssUrl,
       }
       window.remark_config = remark_config
+      setThemeAttribute(theme)
+      appliedTheme = theme
+
+      // Destroy previous render if API exists to avoid ghost nodes
+      try {
+        if (window.REMARK42 && typeof window.REMARK42.destroy === 'function') {
+          window.REMARK42.destroy()
+        }
+      } catch (e) {}
 
       // Clear previous render if any
       try { el.innerHTML = '' } catch(e) {}
@@ -80,6 +98,23 @@ const embedJs = `${host}/web/${componentName}.js`
       head.appendChild(n)
     }
 
+    function applyTheme(theme) {
+      if (!theme || theme === appliedTheme) return
+
+      if (window.REMARK42 && typeof window.REMARK42.changeTheme === 'function') {
+        try {
+          window.REMARK42.changeTheme(theme)
+          setThemeAttribute(theme)
+          appliedTheme = theme
+          return
+        } catch (e) {
+          // fall through to reinject on error
+        }
+      }
+
+      injectScripts(theme)
+    }
+
     // Initial theme from page
     var currentTheme = document.documentElement.getAttribute('data-theme')
     injectScripts(mapTheme(currentTheme))
@@ -91,7 +126,7 @@ const embedJs = `${host}/web/${componentName}.js`
           var mu = mutations[i]
           if (mu.type === 'attributes' && mu.attributeName === 'data-theme'){
             var t = document.documentElement.getAttribute('data-theme')
-            injectScripts(mapTheme(t))
+            applyTheme(mapTheme(t))
             break
           }
         }
