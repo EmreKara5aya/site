@@ -35,12 +35,27 @@ const embedJs = `${host}/web/${componentName}.js`
     function mapTheme(t){
       if (!t) return 'light'
       t = String(t).toLowerCase()
-      return t.indexOf('dark') !== -1 ? 'transparent' : 'light'
+      return t.indexOf('dark') !== -1 ? 'dark' : 'light'
     }
+
+    var customCssUrl = (function(){
+      try {
+        return new URL('/remark42-overrides.css', window.location.origin).href
+      } catch (e) {
+        return (window.location.origin || '') + '/remark42-overrides.css'
+      }
+    })()
 
     function injectScripts(theme){
       // 1) Global config with theme
-      var remark_config = { host: host, site_id: site_id, components: components, theme: theme, locale: locale }
+      var remark_config = {
+        host: host,
+        site_id: site_id,
+        components: components,
+        theme: theme,
+        locale: locale,
+        customCss: customCssUrl,
+      }
       window.remark_config = remark_config
 
       // Clear previous render if any

@@ -1,0 +1,300 @@
+/* Custom Remark42 overrides for better dark theme readability */
+:root {
+  color-scheme: light dark;
+}
+
+body.remark42-theme_dark,
+body.remark42_theme_dark,
+body[data-theme='dark'],
+html[data-theme='dark'] body,
+.remark42_theme_dark,
+.remark42-theme_dark {
+  --r42-surface: #121522;
+  --r42-surface-elevated: #181c2e;
+  --r42-surface-muted: rgba(18, 21, 34, 0.85);
+  --r42-border: rgba(132, 152, 213, 0.4);
+  --r42-text: #f4f6ff;
+  --r42-text-muted: rgba(244, 246, 255, 0.72);
+  --r42-accent: #6ea8ff;
+  color: var(--r42-text) !important;
+  background: transparent !important;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body.remark42-theme_dark *,
+body.remark42_theme_dark *,
+body[data-theme='dark'] *,
+html[data-theme='dark'] body *,
+.remark42_theme_dark *,
+.remark42-theme_dark * {
+  color: inherit;
+}
+
+body.remark42-theme_dark a,
+body.remark42_theme_dark a,
+body[data-theme='dark'] a,
+html[data-theme='dark'] body a,
+.remark42_theme_dark a,
+.remark42-theme_dark a {
+  color: var(--r42-accent) !important;
+}
+
+body.remark42-theme_dark .remark42__comment,
+body.remark42_theme_dark .remark42__comment,
+body[data-theme='dark'] .remark42__comment,
+html[data-theme='dark'] body .remark42__comment,
+.remark42_theme_dark .remark42__comment,
+.remark42-theme_dark .remark42__comment,
+body.remark42-theme_dark .remark42__preview,
+body.remark42_theme_dark .remark42__preview,
+body[data-theme='dark'] .remark42__preview,
+html[data-theme='dark'] body .remark42__preview,
+.remark42_theme_dark .remark42__preview,
+.remark42-theme_dark .remark42__preview,
+body.remark42-theme_dark .remark42__editor,
+body.remark42_theme_dark .remark42__editor,
+body[data-theme='dark'] .remark42__editor,
+html[data-theme='dark'] body .remark42__editor,
+.remark42_theme_dark .remark42__editor,
+.remark42-theme_dark .remark42__editor {
+  background-color: var(--r42-surface-muted) !important;
+  border: 1px solid rgba(132, 152, 213, 0.18) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.remark42-theme_dark textarea,
+body.remark42_theme_dark textarea,
+body[data-theme='dark'] textarea,
+html[data-theme='dark'] body textarea,
+.remark42_theme_dark textarea,
+.remark42-theme_dark textarea,
+body.remark42-theme_dark input,
+body.remark42_theme_dark select,
+body.remark42_theme_dark button,
+body.remark42_theme_dark .select-element,
+body.remark42_theme_dark .remark42__menu button,
+body.remark42_theme_dark .remark42__control button,
+body.remark42_theme_dark .remark42__sort select,
+body.remark42_theme_dark .remark42__sort button,
+body.remark42_theme_dark .remark42__menu select,
+body.remark42_theme_dark .remark42__menu textarea,
+body.remark42_theme_dark .remark42__menu input,
+body.remark42_theme_dark .remark42__control select,
+body.remark42_theme_dark .remark42__control textarea,
+body.remark42_theme_dark .remark42__control input,
+body.remark42-theme_dark textarea,
+body.remark42-theme_dark input,
+body.remark42-theme_dark select,
+body.remark42-theme_dark button,
+body.remark42-theme_dark .select-element,
+body.remark42-theme_dark .remark42__menu button,
+body.remark42-theme_dark .remark42__control button,
+body.remark42-theme_dark .remark42__sort select,
+body.remark42-theme_dark .remark42__sort button,
+body.remark42-theme_dark .remark42__menu select,
+body.remark42-theme_dark .remark42__menu textarea,
+body.remark42-theme_dark .remark42__menu input,
+body.remark42-theme_dark .remark42__control select,
+body.remark42-theme_dark .remark42__control textarea,
+body.remark42-theme_dark .remark42__control input,
+body[data-theme='dark'] textarea,
+body[data-theme='dark'] input,
+body[data-theme='dark'] select,
+body[data-theme='dark'] button,
+body[data-theme='dark'] .select-element,
+body[data-theme='dark'] .remark42__sort select,
+body[data-theme='dark'] .remark42__sort button,
+body[data-theme='dark'] .remark42__menu select,
+body[data-theme='dark'] .remark42__menu textarea,
+body[data-theme='dark'] .remark42__menu input,
+html[data-theme='dark'] body textarea,
+html[data-theme='dark'] body input,
+html[data-theme='dark'] body select,
+html[data-theme='dark'] body button,
+html[data-theme='dark'] body .select-element,
+.remark42_theme_dark textarea,
+.remark42_theme_dark input,
+.remark42_theme_dark select,
+.remark42_theme_dark button,
+.remark42-theme_dark textarea,
+.remark42-theme_dark input,
+.remark42-theme_dark select,
+.remark42-theme_dark button {
+  color: var(--r42-text) !important;
+  background-color: var(--r42-surface-elevated) !important;
+  border: 1px solid var(--r42-border) !important;
+  border-radius: 12px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+body.remark42-theme_dark textarea::placeholder,
+body.remark42_theme_dark textarea::placeholder,
+body[data-theme='dark'] textarea::placeholder,
+html[data-theme='dark'] body textarea::placeholder,
+.remark42_theme_dark textarea::placeholder,
+.remark42-theme_dark textarea::placeholder,
+body.remark42-theme_dark input::placeholder,
+body.remark42_theme_dark input::placeholder,
+body[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] body input::placeholder,
+.remark42_theme_dark input::placeholder,
+.remark42-theme_dark input::placeholder {
+  color: var(--r42-text-muted) !important;
+}
+
+body.remark42-theme_dark select.select-element.M_D,
+body.remark42_theme_dark select.select-element.M_D,
+body[data-theme='dark'] select.select-element.M_D,
+html[data-theme='dark'] body select.select-element.M_D,
+.remark42_theme_dark select.select-element.M_D,
+.remark42-theme_dark select.select-element.M_D {
+  padding: 8px 12px !important;
+  min-height: 42px;
+}
+
+body.remark42-theme_dark select.select-element.M_D option,
+body.remark42_theme_dark select.select-element.M_D option,
+body[data-theme='dark'] select.select-element.M_D option,
+html[data-theme='dark'] body select.select-element.M_D option,
+.remark42_theme_dark select.select-element.M_D option,
+.remark42-theme_dark select.select-element.M_D option {
+  background-color: var(--r42-surface-elevated) !important;
+  color: var(--r42-text) !important;
+}
+
+body.remark42-theme_dark select.select-element.M_D option:checked,
+body.remark42_theme_dark select.select-element.M_D option:checked,
+body[data-theme='dark'] select.select-element.M_D option:checked,
+html[data-theme='dark'] body select.select-element.M_D option:checked,
+.remark42_theme_dark select.select-element.M_D option:checked,
+.remark42-theme_dark select.select-element.M_D option:checked,
+body.remark42-theme_dark select.select-element.M_D option:hover,
+body.remark42_theme_dark select.select-element.M_D option:hover,
+body[data-theme='dark'] select.select-element.M_D option:hover,
+html[data-theme='dark'] body select.select-element.M_D option:hover,
+.remark42_theme_dark select.select-element.M_D option:hover,
+.remark42-theme_dark select.select-element.M_D option:hover {
+  background-color: #2d3c6c !important;
+  color: #ffffff !important;
+}
+
+body.remark42-theme_dark button,
+body.remark42_theme_dark button,
+body[data-theme='dark'] button,
+html[data-theme='dark'] body button,
+.remark42_theme_dark button,
+.remark42-theme_dark button {
+  background-color: rgba(110, 168, 255, 0.18) !important;
+  border-color: rgba(110, 168, 255, 0.4) !important;
+}
+
+body.remark42-theme_dark button:hover,
+body.remark42_theme_dark button:hover,
+body[data-theme='dark'] button:hover,
+html[data-theme='dark'] body button:hover,
+.remark42_theme_dark button:hover,
+.remark42-theme_dark button:hover {
+  background-color: rgba(110, 168, 255, 0.32) !important;
+  border-color: rgba(110, 168, 255, 0.55) !important;
+}
+
+body.remark42-theme_dark .remark42__sort,
+body.remark42_theme_dark .remark42__sort,
+body[data-theme='dark'] .remark42__sort,
+html[data-theme='dark'] body .remark42__sort,
+.remark42_theme_dark .remark42__sort,
+.remark42-theme_dark .remark42__sort {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+body.remark42-theme_dark .remark42__sort label,
+body.remark42_theme_dark .remark42__sort label,
+body[data-theme='dark'] .remark42__sort label,
+html[data-theme='dark'] body .remark42__sort label,
+.remark42_theme_dark .remark42__sort label,
+.remark42-theme_dark .remark42__sort label {
+  color: var(--r42-text-muted) !important;
+  font-weight: 500;
+}
+
+body.remark42-theme_dark .remark42__info,
+body.remark42_theme_dark .remark42__info,
+body[data-theme='dark'] .remark42__info,
+html[data-theme='dark'] body .remark42__info,
+.remark42_theme_dark .remark42__info,
+.remark42-theme_dark .remark42__info {
+  color: var(--r42-text-muted) !important;
+}
+
+body.remark42-theme_dark .remark42__user-name,
+body.remark42_theme_dark .remark42__user-name,
+body[data-theme='dark'] .remark42__user-name,
+html[data-theme='dark'] body .remark42__user-name,
+.remark42_theme_dark .remark42__user-name,
+.remark42-theme_dark .remark42__user-name {
+  color: var(--r42-text) !important;
+  font-weight: 600;
+}
+
+body.remark42-theme_dark .remark42__time,
+body.remark42_theme_dark .remark42__time,
+body[data-theme='dark'] .remark42__time,
+html[data-theme='dark'] body .remark42__time,
+.remark42_theme_dark .remark42__time,
+.remark42-theme_dark .remark42__time {
+  color: var(--r42-text-muted) !important;
+}
+
+body.remark42-theme_dark .remark42__vote,
+body.remark42_theme_dark .remark42__vote,
+body[data-theme='dark'] .remark42__vote,
+html[data-theme='dark'] body .remark42__vote,
+.remark42_theme_dark .remark42__vote,
+.remark42-theme_dark .remark42__vote {
+  color: var(--r42-accent) !important;
+}
+
+body.remark42-theme_dark .remark42__btn,
+body.remark42_theme_dark .remark42__btn,
+body[data-theme='dark'] .remark42__btn,
+html[data-theme='dark'] body .remark42__btn,
+.remark42_theme_dark .remark42__btn,
+.remark42-theme_dark .remark42__btn {
+  border-radius: 12px !important;
+}
+
+/* Ensure dropdown menus keep dark palette */
+body.remark42-theme_dark .remark42__menu,
+body.remark42_theme_dark .remark42__menu,
+body[data-theme='dark'] .remark42__menu,
+html[data-theme='dark'] body .remark42__menu,
+.remark42_theme_dark .remark42__menu,
+.remark42-theme_dark .remark42__menu {
+  background-color: var(--r42-surface) !important;
+  border: 1px solid rgba(132, 152, 213, 0.28) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.remark42-theme_dark .remark42__counter,
+body.remark42_theme_dark .remark42__counter,
+body[data-theme='dark'] .remark42__counter,
+html[data-theme='dark'] body .remark42__counter,
+.remark42_theme_dark .remark42__counter,
+.remark42-theme_dark .remark42__counter {
+  color: var(--r42-text-muted) !important;
+}
+
+/* Fallback: if none of the theme-specific classes exist, scope via root element attr */
+[data-remark42-theme='dark'] select.select-element.M_D,
+[data-remark42-theme='dark'] select.select-element.M_D option,
+[data-remark42-theme='dark'] button,
+[data-remark42-theme='dark'] textarea,
+[data-remark42-theme='dark'] input {
+  color: var(--r42-text, #f6f7ff) !important;
+  background-color: var(--r42-surface-elevated, #181c2e) !important;
+  border: 1px solid var(--r42-border, rgba(132, 152, 213, 0.4)) !important;
+}
