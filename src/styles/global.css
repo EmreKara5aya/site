@@ -593,4 +593,22 @@ article img {
     border-color: color-mix(in oklab, var(--theme-foreground) 35%, transparent) !important;
     color-scheme: dark;
   }
+
+  /* Improve readability of the sort select shipped by Remark42 */
+  html[data-theme*='dark'] #remark42 select.select-element.M_D {
+    background: color-mix(in oklab, var(--theme-background) 92%, var(--theme-foreground) 8%) !important;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--theme-foreground) 25%, transparent) inset;
+  }
+
+  html[data-theme*='dark'] #remark42 select.select-element.M_D option {
+    background: color-mix(in oklab, var(--theme-background) 96%, black 4%) !important;
+    color: var(--theme-foreground) !important;
+  }
+
+  html[data-theme*='dark'] #remark42 select.select-element.M_D option:checked,
+  html[data-theme*='dark'] #remark42 select.select-element.M_D option:hover {
+    background: color-mix(in oklab, var(--theme-accent) 32%, var(--theme-background) 68%) !important;
+    color: var(--theme-heading1) !important;
+  }
 }
