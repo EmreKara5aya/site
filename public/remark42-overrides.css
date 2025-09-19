@@ -151,9 +151,9 @@ html[data-theme='dark'] body select.select-element.M_D,
 .remark42-theme_dark select.select-element.M_D {
   padding: 8px 12px !important;
   min-height: 42px;
-  color: var(--r42-text) !important;
-  background-color: var(--r42-surface-elevated) !important;
-  border-color: var(--r42-border) !important;
+  color: #000 !important;
+  background-color: #f5f7fb !important;
+  border-color: rgba(60, 80, 120, 0.35) !important;
   color-scheme: dark;
   -webkit-appearance: none;
   appearance: none;
@@ -175,8 +175,8 @@ body[data-theme='dark'] select.select-element.M_D option,
 html[data-theme='dark'] body select.select-element.M_D option,
 .remark42_theme_dark select.select-element.M_D option,
 .remark42-theme_dark select.select-element.M_D option {
-  background-color: var(--r42-surface-elevated) !important;
-  color: var(--r42-text) !important;
+  background-color: #f5f7fb !important;
+  color: #000 !important;
 }
 
 body.remark42-theme_dark select.select-element.M_D option:checked,
@@ -191,8 +191,8 @@ body[data-theme='dark'] select.select-element.M_D option:hover,
 html[data-theme='dark'] body select.select-element.M_D option:hover,
 .remark42_theme_dark select.select-element.M_D option:hover,
 .remark42-theme_dark select.select-element.M_D option:hover {
-  background-color: #2d3c6c !important;
-  color: #ffffff !important;
+  background-color: #dce8ff !important;
+  color: #000 !important;
 }
 
 body.remark42-theme_dark button,
@@ -320,7 +320,7 @@ html[data-theme='dark'] body .remark42__counter,
 [data-remark42-theme='dark'] textarea,
 [data-remark42-theme='dark'] input,
 [data-remark42-theme='dark'] select option {
-  color: var(--r42-text, #f6f7ff) !important;
-  background-color: var(--r42-surface-elevated, #181c2e) !important;
-  border: 1px solid var(--r42-border, rgba(132, 152, 213, 0.4)) !important;
+  color: #000 !important;
+  background-color: #f5f7fb !important;
+  border: 1px solid rgba(60, 80, 120, 0.35) !important;
 }
