@@ -581,4 +581,15 @@ article img {
   input[type='submit'] {
     @apply border-accent cursor-pointer;
   }
+
+  /* Force high-contrast sort dropdown inside Remark42 when dark themes are active on Windows */
+  html[data-theme*='dark'] #remark42 select,
+  html[data-theme*='dark'] #remark42 select option {
+    color: var(--theme-foreground) !important;
+    background-color: var(--theme-background) !important;
+  }
+
+  html[data-theme*='dark'] #remark42 select {
+    border-color: color-mix(in oklab, var(--theme-foreground) 35%, transparent) !important;
+  }
 }
