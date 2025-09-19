@@ -151,6 +151,22 @@ html[data-theme='dark'] body select.select-element.M_D,
 .remark42-theme_dark select.select-element.M_D {
   padding: 8px 12px !important;
   min-height: 42px;
+  color: var(--r42-text) !important;
+  background-color: var(--r42-surface-elevated) !important;
+  border-color: var(--r42-border) !important;
+  color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+body.remark42-theme_dark select.select-element.M_D:focus,
+body.remark42_theme_dark select.select-element.M_D:focus,
+body[data-theme='dark'] select.select-element.M_D:focus,
+html[data-theme='dark'] body select.select-element.M_D:focus,
+.remark42_theme_dark select.select-element.M_D:focus,
+.remark42-theme_dark select.select-element.M_D:focus {
+  outline: 2px solid rgba(110, 168, 255, 0.55) !important;
+  outline-offset: 2px;
 }
 
 body.remark42-theme_dark select.select-element.M_D option,
@@ -208,6 +224,15 @@ html[data-theme='dark'] body .remark42__sort,
   display: flex;
   gap: 8px;
   align-items: center;
+}
+
+body.remark42-theme_dark .remark42__sort select,
+body.remark42_theme_dark .remark42__sort select,
+body[data-theme='dark'] .remark42__sort select,
+html[data-theme='dark'] body .remark42__sort select,
+.remark42_theme_dark .remark42__sort select,
+.remark42-theme_dark .remark42__sort select {
+  color-scheme: dark;
 }
 
 body.remark42-theme_dark .remark42__sort label,
@@ -293,7 +318,8 @@ html[data-theme='dark'] body .remark42__counter,
 [data-remark42-theme='dark'] select.select-element.M_D option,
 [data-remark42-theme='dark'] button,
 [data-remark42-theme='dark'] textarea,
-[data-remark42-theme='dark'] input {
+[data-remark42-theme='dark'] input,
+[data-remark42-theme='dark'] select option {
   color: var(--r42-text, #f6f7ff) !important;
   background-color: var(--r42-surface-elevated, #181c2e) !important;
   border: 1px solid var(--r42-border, rgba(132, 152, 213, 0.4)) !important;
