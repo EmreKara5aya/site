@@ -591,5 +591,6 @@ article img {
 
   html[data-theme*='dark'] #remark42 select {
     border-color: color-mix(in oklab, var(--theme-foreground) 35%, transparent) !important;
+    color-scheme: dark;
   }
 }
