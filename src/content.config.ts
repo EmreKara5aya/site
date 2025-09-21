@@ -55,7 +55,7 @@ const posts = defineCollection({
         }),
 });
 
-// Optional theme collections for homepage and post addendum
+// Optional theme collection for homepage content block
 const home = defineCollection({
     loader: glob({ base: './src/content', pattern: ['home.md', 'home.mdx'] }),
     schema: ({ image }) =>
@@ -70,17 +70,4 @@ const home = defineCollection({
         }),
 });
 
-const addendum = defineCollection({
-    loader: glob({ base: './src/content', pattern: ['addendum.md', 'addendum.mdx'] }),
-    schema: ({ image }) =>
-        z.object({
-            avatarImage: z
-                .object({
-                    src: image(),
-                    alt: z.string().optional().default('My avatar'),
-                })
-                .optional(),
-        }),
-});
-
-export const collections = { blog, posts, home, addendum };
+export const collections = { blog, posts, home };
