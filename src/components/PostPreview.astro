@@ -14,7 +14,7 @@ const { post } = Astro.props
 const slug = (post.data.slug as string) || turkishSlugify(post.data.title)
 
 const { remarkPluginFrontmatter } = await render(post)
-const description = remarkPluginFrontmatter.description || post.data.description
+const description = post.data.description ?? remarkPluginFrontmatter?.description
 ---
 
 <article class="w-full py-5 my-1 md:my-4 border-accent/10">
