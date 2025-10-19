@@ -24,6 +24,7 @@ const blog = defineCollection({
             slug: z.string().optional(),
             tags: z.array(z.string()).optional(),
             categories: z.array(z.string()).optional(),
+            series: z.string().optional(),
         }),
 });
 
@@ -52,6 +53,7 @@ const posts = defineCollection({
             slug: z.string().optional(),
             heroImage: image().optional(),
             categories: z.array(z.string()).optional(),
+            series: z.string().optional(),
         }),
 });
 

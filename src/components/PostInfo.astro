@@ -2,6 +2,7 @@
 import { dateString } from '~/utils'
 import { renderComponentToString } from 'astro/runtime/server/render/component.js'
 import { render, type CollectionEntry } from 'astro:content'
+import { turkishSlugify } from '~/utils/slugify'
 
 interface Props {
   post: CollectionEntry<'posts'>
@@ -11,6 +12,7 @@ interface Props {
 const { post, class: className } = Astro.props
 const { remarkPluginFrontmatter } = await render(post)
 const { minutesRead } = remarkPluginFrontmatter
+const seriesSlug = post.data.series ? turkishSlugify(post.data.series) : undefined
 const published = (post.data.published ?? post.data.pubDate ?? post.data.date) as Date
 ---
 
@@ -27,6 +29,18 @@ const published = (post.data.published ?? post.data.pubDate ?? post.data.date) a
     minutesRead && (
       <span class="before:content-['::'] before:inline-block before:mx-0.5">
         {minutesRead.replace(/min read/i, 'dk okuma')}
+      </span>
+    )
+  }
+  {
+    post.data.series && seriesSlug && (
+      <span class="before:content-['::'] before:inline-block before:mx-0.5">
+        <a
+          href={`/series/${seriesSlug}`}
+          class="inline-flex items-center gap-1 rounded-full border border-accent/30 bg-accent/8 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent hover:border-accent/60 hover:bg-accent/12"
+        >
+          Seri: {post.data.series}
+        </a>
       </span>
     )
   }

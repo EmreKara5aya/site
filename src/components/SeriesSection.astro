@@ -1,0 +1,29 @@
+---
+interface SeriesItem {
+  name: string
+  slug: string
+  count: number
+}
+
+interface Props {
+  series: SeriesItem[]
+}
+
+const { series } = Astro.props
+---
+
+<ul class="flex flex-wrap gap-x-3 gap-y-4 my-5" data-testid="series-list">
+  {series.map((item) => (
+    <li>
+      <a
+        href={`/series/${item.slug}`}
+        class="flex gap-2.5 py-2 pl-4 pr-3 bg-accent/7 rounded-3xl border-transparent hover:border-accent/20 border-1"
+      >
+        <span class="font-semibold text-sm sm:text-base text-heading2">{item.name}</span>
+        <span class="rounded-full bg-foreground/7 text-primary px-2 py-1 text-xs font-semibold">
+          {item.count}
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>

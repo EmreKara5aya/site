@@ -15,6 +15,7 @@ const slug = (post.data.slug as string) || turkishSlugify(post.data.title)
 
 const { remarkPluginFrontmatter } = await render(post)
 const description = post.data.description ?? remarkPluginFrontmatter?.description
+const seriesSlug = post.data.series ? turkishSlugify(post.data.series) : undefined
 ---
 
 <article class="w-full py-5 my-1 md:my-4 border-accent/10">

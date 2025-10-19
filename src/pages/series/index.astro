@@ -1,0 +1,34 @@
+---
+import Layout from '~/layouts/Layout.astro'
+import BlockHeader from '~/components/BlockHeader.astro'
+import SeriesSection from '~/components/SeriesSection.astro'
+import { getSortedPosts } from '~/utils'
+import { turkishSlugify } from '~/utils/slugify'
+
+const sortedPosts = await getSortedPosts()
+const seriesMap = new Map<string, { name: string; slug: string; count: number }>()
+for (const post of sortedPosts) {
+  const seriesName = post.data.series
+  if (!seriesName) continue
+  const slug = turkishSlugify(seriesName)
+  const existing = seriesMap.get(slug)
+  if (existing) {
+    existing.count += 1
+  } else {
+    seriesMap.set(slug, { name: seriesName, slug, count: 1 })
+  }
+}
+const seriesList = Array.from(seriesMap.values()).sort((a, b) => b.count - a.count)
+const pageTitle = 'Seriler'
+---
+
+<Layout title={pageTitle} description="Tüm yazı serilerine göz atın">
+  <section class="mt-2 sm:mt-0">
+    <BlockHeader>{pageTitle}</BlockHeader>
+    {seriesList.length > 0 ? (
+      <SeriesSection series={seriesList} />
+    ) : (
+      <p class="mt-4 text-foreground/80">Henüz herhangi bir seri bulunmuyor.</p>
+    )}
+  </section>
+</Layout>

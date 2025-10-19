@@ -8,6 +8,8 @@ import BlockHeader from '~/components/BlockHeader.astro'
 import HomeBanner from '~/components/HomeBanner.astro'
 import siteConfig from '~/site.config'
 import TagsSection from '~/components/TagsSection.astro'
+import SeriesSection from '~/components/SeriesSection.astro'
+import { turkishSlugify } from '~/utils/slugify'
 
 const home = await getCollection('home')
 let HomeContent
@@ -24,6 +26,19 @@ const sortedPosts = await getSortedPosts()
 const postsHaveTags = sortedPosts.some(
   (post) => post.data.tags && post.data.tags.length > 0,
 )
+const seriesMap = new Map<string, { name: string; count: number; slug: string }>()
+for (const post of sortedPosts) {
+  const seriesName = post.data.series
+  if (!seriesName) continue
+  const slug = turkishSlugify(seriesName)
+  const existing = seriesMap.get(slug)
+  if (existing) {
+    existing.count += 1
+  } else {
+    seriesMap.set(slug, { name: seriesName, slug, count: 1 })
+  }
+}
+const seriesList = Array.from(seriesMap.values()).sort((a, b) => b.count - a.count)
 ---
 
 <Layout>
@@ -32,6 +47,14 @@ const postsHaveTags = sortedPosts.some(
       <HomeBanner avatarImage={homeAvatarImage} githubCalendar={homeGithubCalendar}>
         <HomeContent />
       </HomeBanner>
+    )
+  }
+  {
+    seriesList.length > 0 && (
+      <>
+        <BlockHeader>Seriler</BlockHeader>
+        <SeriesSection series={seriesList} />
+      </>
     )
   }
   {

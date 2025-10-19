@@ -1,0 +1,55 @@
+---
+import type { GetStaticPaths } from 'astro'
+import Layout from '~/layouts/Layout.astro'
+import { getSortedPosts } from '~/utils'
+import Pagination from '~/components/Pagination.astro'
+import BlockHeader from '~/components/BlockHeader.astro'
+import siteConfig from '~/site.config'
+import PostPreview from '~/components/PostPreview.astro'
+import { turkishSlugify } from '~/utils/slugify'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const sortedPosts = await getSortedPosts()
+  const seriesMap = new Map<string, { name: string; posts: typeof sortedPosts }>()
+  for (const post of sortedPosts) {
+    const seriesName = post.data.series
+    if (!seriesName) continue
+    const slug = turkishSlugify(seriesName)
+    const existing = seriesMap.get(slug)
+    if (existing) {
+      existing.posts.push(post)
+    } else {
+      seriesMap.set(slug, { name: seriesName, posts: [post] })
+    }
+  }
+
+  const pages = []
+  for (const [slug, { name, posts }] of seriesMap) {
+    pages.push(
+      ...paginate(posts, {
+        params: { series: slug },
+        pageSize: siteConfig.pageSize,
+        props: { seriesName: name },
+      }),
+    )
+  }
+
+  return pages
+}) satisfies GetStaticPaths
+
+const { page, seriesName } = Astro.props as { page: any; seriesName: string }
+const pageTitle = `Seri: ${seriesName}`
+---
+
+<Layout title={pageTitle} description={`${seriesName} serisindeki yazılar`}>
+  <div class="mt-2 sm:mt-0">
+    <BlockHeader>{pageTitle}</BlockHeader>
+    {page.data.map((post) => <PostPreview post={post} />)}
+    <Pagination
+      prevLink={page.url.prev ? encodeURI(page.url.prev) : undefined}
+      prevText="Daha Yeni Yazılar"
+      nextLink={page.url.next ? encodeURI(page.url.next) : undefined}
+      nextText="Daha Eski Yazılar"
+    />
+  </div>
+</Layout>
