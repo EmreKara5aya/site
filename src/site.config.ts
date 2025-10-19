@@ -81,6 +81,7 @@ const config: SiteConfig = {
     linkedin: 'https://www.linkedin.com/in/emrekarakaya',
     twitter: 'https://twitter.com/emrekara5aya',
     instagram: 'https://www.instagram.com/emrekara5aya',
+    youtube: 'https://www.youtube.com/@karakayaemre',
     rss: true, // Set to true to include an RSS feed link in the footer
   },
   // Disable Giscus (theme’s default) and enable Remark42 instead.

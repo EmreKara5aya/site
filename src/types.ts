@@ -132,6 +132,7 @@ export type SocialLinks = {
   bluesky?: string
   linkedin?: string
   instagram?: string
+  youtube?: string
   email?: string
   rss?: boolean
 }
