@@ -150,15 +150,6 @@ let generatedCss: string = cssLines.join('\n')
     <title>{pageTitle}</title>
     <style is:global define:vars={baseCssVars}></style>
     <style is:inline set:html={generatedCss}></style>
-    {
-      !import.meta.env.DEV && (
-        <script
-          defer
-          data-domain="emrekarakaya.com.tr"
-          src="https://pl.emrekarakaya.com.tr/js/script.js"
-        ></script>
-      )
-    }
     {themeMode === 'light-dark-auto' && <LightDarkAutoThemeLoader />}
     {themeMode === 'select' && <SelectThemeLoader />}
   </head>
@@ -172,5 +163,14 @@ let generatedCss: string = cssLines.join('\n')
       </main>
       <Footer />
     </div>
+    {
+      !import.meta.env.DEV && (
+        <script
+          defer
+          data-domain="emrekarakaya.com.tr"
+          src="https://pl.emrekarakaya.com.tr/js/script.js"
+        ></script>
+      )
+    }
   </body>
 </html>
