@@ -1,6 +1,6 @@
 ---
 title: "ChatGPT Atlas: OpenAI’nin Yeni Yapay Zekâ Tarayıcısı"
-description: "OpenAI’nin Chromium tabanlı ChatGPT Atlas tarayıcısını; Agent Mode, Memory ve entegre ChatGPT deneyimiyle birlikte gerçek senaryolarda nasıl çalıştığını inceliyorum."
+description: "Yeni ChatGPT Atlas tarayıcısı gerçekten geleceğin yapay zekâ asistanı mı? Ajan Modu ve tüm özellikleriyle deneyimledim."
 date: 2025-10-23
 pubDate: 2025-10-23
 tags:
