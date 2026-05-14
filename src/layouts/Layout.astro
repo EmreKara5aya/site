@@ -165,11 +165,14 @@ let generatedCss: string = cssLines.join('\n')
     </div>
     {
       !import.meta.env.DEV && (
-        <script
-          defer
-          data-domain="emrekarakaya.com.tr"
-          src="https://pl.emrekarakaya.com.tr/js/script.js"
-        ></script>
+        <>
+          <!-- Privacy-friendly analytics by Plausible -->
+          <script async src="https://analiz.emrekarakaya.com.tr/js/pa-vbwq5vJpDLhqJv92Eq0Lp.js"></script>
+          <script>
+            window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+            plausible.init()
+          </script>
+        </>
       )
     }
   </body>
