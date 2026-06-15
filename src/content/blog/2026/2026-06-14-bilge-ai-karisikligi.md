@@ -25,9 +25,6 @@ author: "Emre Karakaya"
 toc: true
 ---
 
-
-# Bilge AI Karışıklığı
-
 Sanayi ve Teknoloji Bakanı Mehmet Fatih Kacır’ın TÜBİTAK’ın geliştirdiği **yerli büyük dil modeli (LLM)** “Bilge” ile yaptığı canlı demo, sosyal medyada geniş yankı uyandırdı. Ancak tanıtımın hemen ardından arama trafiğinin büyük kısmı **Bilge AI**’ya yöneldi.
 
 Videoyu izleyenlerin çoğu girişteki “Bilge” yazısına ve stiline baktığında tanıdık bir hisse kapıldı. Aynı koyu tema, yazı rengi, font stili ve genel tasarım dili, bakanın videosundaki intro kısmıyla şaşırtıcı derecede örtüşüyordu. Uygulamanın diğer bölümleri farklı olsa da özellikle bu ilk giriş bölümü ve yazı tasarımı karışıklığa en büyük sebep oldu. TÜBİTAK ise konuya net bir açıklama getirdi: Bu platform, TÜBİTAK’ın geliştirdiği resmi “Bilge” modeli ile hiçbir bağlantısı olmayan ticari bir üründür.
